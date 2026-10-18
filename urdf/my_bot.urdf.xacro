@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<robot name="my_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- materials included -->
+<xacro:include filename="materials.xacro"/>
+
+<!-- base_link and base_foot_print included -->
+<xacro:include filename="base/base.xacro"/>
+
+<!-- drive wheels included -->
+<xacro:include filename="wheels/wheels.xacro"/>
+
+<!-- castor_wheels included -->
+<xacro:include filename="wheels/castor_wheels.xacro"/>
+
+<!-- lidar_mount and lidar included -->
+<xacro:include filename="sensors/lidar.xacro"/>
+
+</robot>
