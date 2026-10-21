@@ -2,63 +2,29 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<!-- lidar and lidar_mount properties -->
-<xacro:property name="lidar_mount_length" value="0.07"/>
-<xacro:property name="lidar_mount_width" value="0.06"/>
-<xacro:property name="lidar_mount_height" value="0.045"/>
-<xacro:property name="lidar_mount_x_offset" value="0.035"/>
-<xacro:property name="lidar_radius" value="0.0295"/>
-<xacro:property name="lidar_height" value="0.02"/>
+    <!-- lidar and lidar_mount properties -->
+    <xacro:property name="lidar_mount_length" value="0.07"/>
+    <xacro:property name="lidar_mount_width" value="0.06"/>
+    <xacro:property name="lidar_mount_height" value="0.045"/>
+    <xacro:property name="lidar_mount_x_offset" value="0.035"/>
+    <xacro:property name="lidar_radius" value="0.0295"/>
+    <xacro:property name="lidar_height" value="0.02"/>
 
-
-
-
-
-
-    <!-- lidar_mount_definition -->
-<link name="lidar_mount">
-    <visual>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-            <box size="${lidar_mount_length} ${lidar_mount_width} ${lidar_mount_height}"/>
-        </geometry>
-        <material name="black"/>
-    </visual>
-    
-    <collision>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-            <box size="${lidar_mount_length} ${lidar_mount_width} ${lidar_mount_height}"/>
-        </geometry>
-    </collision>
-</link>
-
-<joint name="base_link_to_lidar_mount" type="fixed">
-    <parent link="base_link"/>
-    <child link="lidar_mount"/>
-    <origin xyz="${lidar_mount_x_offset} 0.0 ${box_height/2 + lidar_mount_height/2}"/>
-</joint>
-
-<link name="lidar">
-    <visual>
-        <origin xyz="0 0 0"/>
-        <geometry>
-            <cylinder radius="${lidar_radius}" length="${lidar_height}"/>
-        </geometry>
-        <material name="blue"/>
-    </visual>
-
-    <collision>
-        <origin xyz="0 0 0"/>
-        <geometry>
-            <cylinder radius="${lidar_radius}" length="${lidar_height}"/>
-        </geometry>        
-    </collision>
-</link>
-
-<joint name="lidar_mount_to_mount" type="fixed">
-    <parent link="lidar_mount"/>
-    <child link="lidar"/>
-    <origin xyz="0 0 ${lidar_mount_height/2 + lidar_height/2}" rpy="0 0 0"/>
-</joint>
+    <xacro:macro name="spawn_lidar" params="radius height color">
+        <link name="lidar">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${radius}" length="${height}"/>
+            </geometry>
+            <material name="${color}"/>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <cylinder radius="${radius}" length="${height}"/>
+                </geometry>           
+            </collision>
+        </link>
+    </xacro:macro>
 </robot>

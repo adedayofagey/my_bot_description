@@ -5,53 +5,24 @@
 <!-- castor wheel properties -->
 <xacro:property name="castor_radius" value="0.012"/>
 <xacro:property name="castor_x_offset" value="0.075"/>
-    
-<!-- castor wheels definiton -->
-    <link name="front_castor_wheel">
-    <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-            <sphere radius="${castor_radius}"/>
-        </geometry>
-        <material name="blue"/>
-    </visual>
 
-    <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-            <sphere radius="${castor_radius}"/>
-        </geometry>
-    </collision>
-    </link>
-
-    <joint name="base_link_to_front_castor_wheel" type="fixed">
-        <parent link="base_link"/>
-        <child link="front_castor_wheel"/>
-        <origin xyz ="${castor_x_offset} 0 ${-1*(box_height-castor_radius)}" rpy="0 0 0"/>
-    </joint>
-
-    <link name="rear_castor_wheel">
-    <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-            <sphere radius="${castor_radius}"/>
-        </geometry>
-        <material name="black"/>
-    </visual>
-
-    <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-            <sphere radius="${castor_radius}"/>
-        </geometry>
-    </collision>
-    </link>
-
-    <joint name="base_link_to_rear_castor_wheel" type="fixed">
-        <parent link="base_link"/>
-        <child link="rear_castor_wheel"/>
-        <origin xyz ="${-1*(castor_x_offset)} 0 ${-1*(ground_offset + box_height/2 - castor_radius)}" rpy="0 0 0"/>
-    </joint>
-
+<!-- A function declaration for a castor_wheel -->
+    <xacro:macro name="create_castor_wheel" params="prefix radius color">
+        <link name="${prefix}_castor_wheel">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <sphere radius="${radius}"/>
+                </geometry>
+                <material name="${color}"/>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <sphere radius="${radius}"/>
+                </geometry>
+            </collision>
+        </link>
+    </xacro:macro>
 
 </robot>
