@@ -3,10 +3,10 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <!-- lidar and lidar_mount properties -->
-    <xacro:property name="lidar_mount_length" value="0.07"/>
-    <xacro:property name="lidar_mount_width" value="0.06"/>
-    <xacro:property name="lidar_mount_height" value="0.045"/>
-    <xacro:property name="lidar_mount_x_offset" value="0.035"/>
+    <xacro:property name="lidar_mount_length" value="0.035"/>
+    <xacro:property name="lidar_mount_width" value="0.035"/>
+    <xacro:property name="lidar_mount_height" value="0.150"/>
+    <xacro:property name="lidar_mount_x_offset" value="0.0825"/>
     <xacro:property name="lidar_radius" value="0.0295"/>
     <xacro:property name="lidar_height" value="0.02"/>
 

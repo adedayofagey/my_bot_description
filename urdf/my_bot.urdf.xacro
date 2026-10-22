@@ -137,4 +137,22 @@
         roll="0" pitch="0" yaw="0"
     />
 
+    <xacro:include filename="cargo/cargo.xacro"/>
+    <xacro:create_box
+        prefix="cargo"
+        length="${cargo_length}"
+        width="${cargo_width}"
+        height="${cargo_height}"
+        color="black"
+    />
+
+    <xacro:create_joint
+        parent_link="base_link_box"
+        child_link="cargo_box"
+        type="fixed"
+        reflect="1"
+        x="${-lidar_mount_width/2}" y="0" z="${box_height/2 + cargo_height/2}"
+        roll="0" pitch="0" yaw="0"
+    />
+
 </robot>

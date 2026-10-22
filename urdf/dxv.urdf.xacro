@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+
+<robot name="my_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- materials included -->
+    <xacro:include filename="materials.xacro"/>
+
+    <!-- base_link and base_foot_print included -->
+    <xacro:include filename="base/base.xacro"/>
+    <!-- function call to create base -->
+    <xacro:create_box
+        prefix="base_link"
+        length="${box_length}"
+        width="${box_width}"
+        height="${box_height}"
+        color="green"
+    />
+
+    <!-- A function call to create joint -->
+    <xacro:create_joint 
+        parent_link="base_footprint"
+        child_link="base_link_box"
+        type="fixed"
+        reflect="1"
+        x ="0" y="0" z="${ground_offset + box_height/2}"
+        roll="0" pitch="0" yaw="0"  
+    />
+
+    
+
+    <!-- drive wheels included -->
+    <xacro:include filename="wheels/wheels.xacro"/>
+    <!-- A function call to create left_wheel -->
+    <xacro:create_wheel
+        prefix="left"
+        radius="${wheel_radius}"
+        width="${wheel_width}"
+        color="black"
+    />
+
+    <xacro:create_wheel_joint
+        parent_link="base_link_box"
+        child_link="left_wheel_link"
+        type="continuous"
+        reflect="1"
+        x ="0" y ="${box_width/2 + wheel_width/2}" z="0"
+        roll="0" pitch="0" yaw="0" 
+        axis="0 1 0"
+    />
+
+    <!-- A function call to create left_wheel -->
+    <xacro:create_wheel
+        prefix="right"
+        radius="${wheel_radius}"
+        width="${wheel_width}"
+        color="black"
+    />
+
+    <xacro:create_wheel_joint
+        parent_link="base_link_box"
+        child_link="right_wheel_link"
+        type="continuous"
+        reflect="-1"
+        x ="0" y ="${box_width/2 + wheel_width/2}" z="0"
+        roll="0" pitch="0" yaw="0" 
+        axis="0 1 0"
+    />
+
+    <!-- castor_wheels included -->
+    <xacro:include filename="wheels/castor_wheels.xacro"/>
+    <!-- A function call to create  front castor_wheel -->
+    <xacro:create_castor_wheel
+        prefix="front"
+        radius="${castor_radius}"
+        color = "black"
+    />
+
+    <xacro:create_wheel_joint
+        parent_link="base_link_box"
+        child_link="front_castor_wheel"
+        type="fixed"
+        reflect="1"
+        x="${castor_x_offset}" y="0" z="${-1*(box_height-castor_radius)}"
+        roll="0" pitch="0" yaw="0"
+        axis="1 1 1"
+    />
+
+    <!-- A function call to create rear castor_wheel -->
+    <xacro:create_castor_wheel
+        prefix="rear"
+        radius="${castor_radius}"
+        color = "black"
+    />
+
+    <xacro:create_wheel_joint
+        parent_link="base_link_box"
+        child_link="rear_castor_wheel"
+        type="fixed"
+        reflect="-1"
+        x="${castor_x_offset}" y="0" z="${(box_height-castor_radius)}"
+        roll="0" pitch="0" yaw="0"
+        axis="1 1 1"
+    />
+
+    <!-- lidar_mount and lidar included -->
+    <xacro:include filename="sensors/lidar.xacro"/>
+
+    <!-- A function call to create lidar_mount -->
+    <xacro:create_box
+        prefix="lidar_mount"
+        length="${lidar_mount_length}"
+        width="${lidar_mount_width}"
+        height="${lidar_mount_height}"
+        color="black"
+    />
+
+    <xacro:create_joint
+        parent_link="base_link_box"
+        child_link="lidar_mount_box"
+        type="fixed"
+        reflect="1"
+        x="${lidar_mount_x_offset}" y="0" z="${box_height/2 + lidar_mount_height/2}"
+        roll="0" pitch="0" yaw="0"
+    />
+
+<!-- A function call to spawn lidar -->
+    <xacro:spawn_lidar
+        radius="${lidar_radius}"
+        height="${lidar_height}"
+        color="blue"
+    />
+
+    <xacro:create_joint
+        parent_link="lidar_mount_box"
+        child_link="lidar"
+        type="fixed"
+        reflect="1"
+        x="0" y="0" z="${lidar_mount_height/2 + lidar_height/2}"
+        roll="0" pitch="0" yaw="0"
+    />
+
+</robot>
